@@ -1,0 +1,6 @@
+pwm 2 
+resistors were 33k
+c was 2uF
+
+loads
+100 1k 100k 1M
