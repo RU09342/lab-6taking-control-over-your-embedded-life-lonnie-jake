@@ -5,6 +5,7 @@ The only software componenet necessary for this part of the lab is to use the mi
 I used the my code from a previous lab altered slightly. All it does is throw an interrupt when the button is pressed, then flips pin 1.0.
 The code is included below:
 
+```
 #include <msp430.h> 
 
 int blahh = 0; //variable to keep track of button interrupts
@@ -47,7 +48,7 @@ P1IFG &= ~BIT3; // Clear flag when done
 P1OUT &= ~BIT0; // Turn's LEDs off after flag is cleared.
 
 }
-
+```
 ## Relays
 
 The circuit we used to drive the relay with the microprocessor is below:
