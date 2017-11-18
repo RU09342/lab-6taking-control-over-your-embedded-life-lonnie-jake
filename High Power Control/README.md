@@ -62,4 +62,8 @@ P1OUT &= ~BIT0; // Turn's LEDs off after flag is cleared.
 
 }
 
-The circuit we used to hook up the relay is below:
+The circuit we used to drive the relay with the microprocessor is below:
+![RelayCircuit](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/High%20Power%20Control/pictures/relay%20circuit.jpg)
+
+The configuration that was settled on was to use a NMOSFET in a low side switch configuration. The processor needed to be separated from the load of the circuit because of the high current draw of the power resistor. This configuration ensured no current would harm the processor due to MOSFETs having no input current.
+
