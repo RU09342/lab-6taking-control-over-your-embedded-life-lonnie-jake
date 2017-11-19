@@ -50,22 +50,27 @@ int adcread;
 
 void uart_init();
 void adc_init();
+void timer_init();
 
 void main()
 {
       WDTCTL = WDTPW + WDTHOLD;         // Stop WDT
 
       uart_init();
-      adc_init();
+      //adc_init();
+      timer_init();
 
-        while (1)
+       /* while (1)
         {
           ADC10CTL0 |= ENC + ADC10SC;             // Sampling and conversion start
           __bis_SR_register(CPUOFF + GIE);        // LPM0, ADC10_ISR will force exit
           adcread = ADC10MEM & 0xFF;
           while (!(IFG2&UCA0TXIFG));                // USCI_A0 TX buffer ready?
           UCA0TXBUF = adcread;
+
         }
+        */
+      __bis_SR_register(LPM0_bits + GIE);       // Enter LPM0, interrupts enabled
 }
 
 
@@ -79,8 +84,7 @@ void __attribute__ ((interrupt(USCIAB0RX_VECTOR))) USCI0RX_ISR (void)
 #error Compiler not supported!
 #endif
 {
-  while (!(IFG2&UCA0TXIFG));                // USCI_A0 TX buffer ready?
-  UCA0TXBUF = UCA0RXBUF;                    // TX -> RXed character
+    TA1CCR1 = 255-UCA0RXBUF;
 }
 
 // ADC10 interrupt service routine
@@ -93,19 +97,21 @@ void __attribute__ ((interrupt(ADC10_VECTOR))) ADC10_ISR (void)
 #error Compiler not supported!
 #endif
 {
-    __bic_SR_register_on_exit(CPUOFF);        // Clear CPUOFF bit from 0(SR)
+    //__bic_SR_register_on_exit(CPUOFF);        // Clear CPUOFF bit from 0(SR)
 }
 
 void uart_init()
 {
-    UCA0CTL1 = UCSWRST;
-    UCA0CTL1 |= UCSSEL_2;
-    UCA0BR0 = 104;
-    UCA0BR1 = 0x00;
-    UCA0MCTL = UCBRS0;
-    P1SEL = BIT1 + BIT2;
-    P1SEL2= BIT1 + BIT2;
-    UCA0CTL1 &= ~UCSWRST;
+    DCOCTL = 0;                               // Select lowest DCOx and MODx settings
+    BCSCTL1 = CALBC1_1MHZ;                    // Set DCO
+    DCOCTL = CALDCO_1MHZ;
+    P1SEL = BIT1 + BIT2 ;                     // P1.1 = RXD, P1.2=TXD
+    P1SEL2 = BIT1 + BIT2 ;                    // P1.1 = RXD, P1.2=TXD
+    UCA0CTL1 |= UCSSEL_2;                     // SMCLK
+    UCA0BR0 = 104;                            // 1MHz 9600
+    UCA0BR1 = 0;                              // 1MHz 9600
+    UCA0MCTL = UCBRS0;                        // Modulation UCBRSx = 1
+    UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
     IE2 |= UCA0RXIE;                          // Enable USCI_A0 RX interrupt
 }
 
@@ -116,4 +122,16 @@ void adc_init()
     ADC10AE0 |= 0x02;                         // PA.1 ADC option select
     P1DIR |= 0x01;
 }
+void timer_init()
+{
+        P2SEL |= BIT2;
+        P2DIR |= BIT2;
+        P2OUT &= ~BIT2;
 
+        TA1CTL |= TASSEL_2 |ID_2 | MC_1;
+
+        TA1CCR0 = 255;              // Set clock period
+
+        TA1CCR1 = 125;
+        TA1CCTL1 |= OUTMOD_3;       // Set/Reset mode
+}
