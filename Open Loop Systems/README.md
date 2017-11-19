@@ -223,20 +223,32 @@ int tempToPWM(temp)
     return pwm;
 }
 ```
+
+
 UART implemented by William Goh from TI.
 
 This code takes in a PWM over UART and sets the PWM pin to a set duty cycle. This duty cycle relates to a fan speed that was determined by our system modeling below.
 
 ## Circuit
 
-The circuit that was used for this open loop.
+The circuit that was used for this open loop:
+
+
 ![circuit](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Open%20Loop%20Systems/pictures/circuit%20diagram.PNG)
+
+
 ![circuitirl](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Open%20Loop%20Systems/pictures/20171118_205649.jpg)
 
 ## System Modeling
 Lonnie iterated through PWM cycles 10% at a time, (0%, 10%, 20%, 30%...) and measured the steady state ADC reading and actual temperature of the regulator package using a thermocouple. Once everything was tested he graphed the data in excel to get us an equation for each variable. 
+
+
 ![table](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Open%20Loop%20Systems/pictures/table.PNG)
+
+
 ![tempvspwm](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Open%20Loop%20Systems/pictures/temperaturevspwm.PNG)
+
+
 ![adcvstemp](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Open%20Loop%20Systems/pictures/adcvstemperature.PNG)
 
 We used the equation given by these two graphs to make a function called "tempToPWM" to take in a target temperature over UART, and set the correct fan speed based on the trendline.
