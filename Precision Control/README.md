@@ -68,9 +68,9 @@ void timer_init()
 The code for UART setup is taken from the TI resource explorer, Bhargavi Nisarga.
 
 The circuit we used for the low pass is below:
-[!lowpass](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Precision%20Control/pictures/lowpass.PNG)
+![lowpass](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Precision%20Control/pictures/lowpass.PNG)
 Our IRL performance was:
-[!lowpassirl](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Precision%20Control/pictures/scope_21.png)
+![lowpassirl](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Precision%20Control/pictures/scope_21.png)
 The performance was as expected. The low pass smoothed out the transition to the top. It measured about 2.3V in real life. 
 
 
@@ -102,11 +102,11 @@ int main(void)
 }
 ```
 Pin6.0 is the least significant bit here and it goes up to P6.6, then we had to put the most significant bit on P3.4 because we ran out of GPIO pins. So the first for loop and the first XOR make the ramp up, the second XOR and the second for loop make the ramp down. The ramp going down is the full triangle wave. The circuit that we used is the diagram below...
-[!r2rcircuit](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Precision%20Control/R2R_Ladder.JPG)
+![r2rcircuit](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Precision%20Control/R2R_Ladder.JPG)
 The ramp up screenshot is below:
-[!r2rup](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Precision%20Control/pictures/R2R%20DAC.png)
+![r2rup](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Precision%20Control/pictures/R2R%20DAC.png)
 The full ramp screenshot is below:
-![!r2rramp](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Precision%20Control/pictures/r2rfft/bit7.png)
+![r2rramp](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Precision%20Control/pictures/r2rfft/bit7.png)
 
 ## Loading Effects
 For loading effect I chose 4 resistors: 100, 1000, 10k, 1M ohms. The screenshots for each one can be found [here](https://github.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/tree/master/Precision%20Control/pictures/loads).
