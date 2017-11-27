@@ -246,10 +246,10 @@ Lonnie iterated through PWM cycles 10% at a time, (0%, 10%, 20%, 30%...) and mea
 ![table](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Open%20Loop%20Systems/pictures/table.PNG)
 
 
-![tempvspwm](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Open%20Loop%20Systems/pictures/temperaturevspwm.PNG)
+![tempvspwm](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Open%20Loop%20Systems/pictures/Temp2PWM.JPG)
 
 
-![adcvstemp](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Open%20Loop%20Systems/pictures/adcvstemperature.PNG)
+![adcvstemp](https://raw.githubusercontent.com/RU09342/lab-6taking-control-over-your-embedded-life-lonnie-jake/master/Open%20Loop%20Systems/pictures/ADC2Temp.JPG)
 
 We used the equation given by these two graphs to make a function called "tempToPWM" to take in a target temperature over UART, and set the correct fan speed based on the trendline.
 
